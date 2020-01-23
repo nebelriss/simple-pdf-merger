@@ -1,10 +1,7 @@
-from __future__ import print_function, unicode_literals
-from os.path import isfile, join
 from os import walk, path
 from pathlib import Path
 from glob import glob
 from PyInquirer import style_from_dict, Token, prompt, Separator
-from pprint import pprint
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 outputPath = str(Path(__file__).parent.absolute())
