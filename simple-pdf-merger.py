@@ -63,16 +63,16 @@ def askForPdfSelection():
     diplomaQuestions = [
         {
             'type': 'checkbox',
-            'message': 'Select Diplomas',
-            'name': 'diplomas',
+            'message': 'Select PDFs',
+            'name': 'pdfs',
             'choices': filelist,
-            'validate': lambda answer: 'Chose your Diplomas for the new PDF' \
-                if len(answer) == 0 else True
+            'validate': lambda answer: 'Chose your PDFs to merge'
+            if len(answer) == 0 else True
         }
     ]
 
     files = prompt(diplomaQuestions, style=style)
-    return files['diplomas']
+    return files['pdfs']
 
 if __name__ == '__main__':
     paths = askForPdfSelection()
