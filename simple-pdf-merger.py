@@ -17,10 +17,13 @@ style = style_from_dict({
     Token.Question: '',
 })
 
+
 def readAllFiles():
     sourcePath = askForSourcePath()
-    paths = [y for x in walk(sourcePath) for y in glob(path.join(x[0], '*.pdf'))]
+    paths = [y for x in walk(sourcePath)
+             for y in glob(path.join(x[0], '*.pdf'))]
     return paths
+
 
 def getFileListForQuestions():
     paths = readAllFiles()
@@ -28,11 +31,12 @@ def getFileListForQuestions():
     for path in paths:
         p = path.split('/')
         filename = p[len(p) - 1]
-        filelist.append({ 
+        filelist.append({
             'name': filename,
             'value': path
-            })
+        })
     return filelist
+
 
 def generatePDF(paths):
     pdf_writer = PdfFileWriter()
@@ -41,10 +45,11 @@ def generatePDF(paths):
         pdf_reader = PdfFileReader(path)
         for page in range(pdf_reader.getNumPages()):
             pdf_writer.addPage(pdf_reader.getPage(page))
-    
+
     outputFileName = outputPath + '/' + outFilename
     with open(outputFileName, 'wb') as out:
         pdf_writer.write(out)
+
 
 def askForSourcePath():
     sourcePathQuestion = [
@@ -56,6 +61,7 @@ def askForSourcePath():
     ]
     sourcePath = prompt(sourcePathQuestion, style=style)
     return sourcePath['path']
+
 
 def askForPdfSelection():
     filelist = getFileListForQuestions()
@@ -74,8 +80,9 @@ def askForPdfSelection():
     files = prompt(diplomaQuestions, style=style)
     return files['pdfs']
 
+
 if __name__ == '__main__':
     paths = askForPdfSelection()
-   
+
     if paths:
         generatePDF(paths)
